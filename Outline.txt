@@ -1,0 +1,49 @@
+Features:
+  -Items
+  -Armour
+  -Weapon
+  -Character Name
+  -Health
+  -Time
+  -Money
+  -Spells
+  -Mana
+  -Strength
+  -Quests
+
+Commands:
+  General:
+  -search / s
+  -look (object) / l
+  -attack (npc) / a
+  -pickup (item) / p
+  -sleep (bed) / s
+  -help / h
+  -quit / q
+  -inventory / i
+  ================
+  Dialogue:
+  -offer (item) / of
+  -intimidate / in
+  ================
+  Combat:
+  -plead / pl
+  -swing / sw
+  -throw / th
+  -cast (spell) / ca
+  -cast (spell) at (target)
+  -run / ru
+  ================
+  Magic:
+  -heal / h
+  -lightning / l
+  -fire / f
+  -rock throw / rt
+
+
+Story:
+  -Start in field with nothing, no save
+  -Death = Death
+  -Move from Room to Room / Area to Area
+  -No Gender just Name
+  
