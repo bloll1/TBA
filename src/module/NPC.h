@@ -1,22 +1,19 @@
-#ifndef thePlayer
-#define thePlayer
-#include <vector>
+#ifndef theNPC
+#define theNPC
 
-struct Player {
+struct NPC {
   std::string name;
+  int ID;
   std::vector<std::string> inventory;
   int health;
   int strength;
-  int mana;
   std::string armour;
   std::string weapon;
 
 
-  Player(std::string newName) {
+
+  NPC(std::string newName){
     name = newName;
-    health = 100;
-    strength = 1;
-    mana = 0;
   };
 };
 #endif
