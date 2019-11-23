@@ -2,67 +2,53 @@
 #include "createDialogTree.h"
 #include <iostream>
 
+//cout << "\033[1;31mbold red text\033[0m\n";
 
 int main(int argc, char const *argv[]) {
-  DialogTree dt = new DialogTree();
+  DialogTree  dt;
   std::string command;
 
   do {
-
-  } while (command != "q" || command != "quit")
+    std::cout << "\033[1;37mCRT: \033[0m";
+    command = read();
+    dt.process(command, dt);
+  } while (command != "q" && command != "quit");
 
 
   return 0;
 }
 
-void DialogTree::process(std::string command) {
-  
+DialogTree::DialogTree() {
+
+}
+
+void DialogTree::process(std::string command, DialogTree dt) {
+  if (command == "help" || command == "h" || command == "") {
+    dt.usage();
+  } else if (command == "create" || command == "c") {
+    //dt.create(name);
+    std::cout << "CALLED CREATE" << '\n';
+  } else if (command == "load" || command == "l") {
+    //dt.load(name);
+    std::cout << "CALLED LOAD" << '\n';
+  } else if (command == "delete" || command == "d") {
+    //dt.delete(name);
+    std::cout << "CALLED DELETE" << '\n';
+  } else if (command == "quit" || command == "q") {
+    std::cout << "CLOSING..." << '\n';
+  } else {
+    std::cout << "Error: " << command << " is unkown try <help>" << '\n';
+  }
+
 }
 
 void DialogTree::usage() {
+  std::cout << std::endl;
   std::cout <<
               "Commands:" << '\n'
-  << "        create | c - creates a new npc with a given name" <<  '\n'
-  << "        load   | l - loads a npc's dialog tree by name" <<    '\n'
-  << "        delete | d - delete's npc from the file" <<           '\n';
-}
-
-
-
-DialogTree::DialogFile(string fileName, bool initialize):
-    stream{fileName, ios::in | ios::out | ios::binary} {
-  if (!stream.is_open() && initialize) {
-    stream.open(fileName, ios::in | ios::out | ios::binary | ios::trunc);
-  } else {
-    stream = nullptr;
-  }
-}
-
-DialogTree::~DialogFile() {
-    stream.close();
-}
-
-void DialogTree::flush_stream() {
-  stream.flush();
-}
-
-
-void DialogTree::write(size_t k, char * str, size_t blockSize) {
-  char buffer[blockSize];
-  buffer[blockSize - 1] = '\0';
-  strncpy(buffer, str, blockSize - 1);
-  stream.seekp(k*blockSize, ios::beg);
-  stream.write(buffer, blockSize);
-  stream.flush();
-}
-
-
-char * DialogTree::read(size_t k, char * oldbuffer, size_t blockSize) {
-  char str[blockSize];
-  strncpy(str, oldbuffer, blockSize);
-  stream.seekg(k*blockSize, ios::beg);
-  stream.read(str, blockSize);
-  char * buffer = new char[blockSize + 1];
-  strncpy(buffer, str, blockSize);
-  return buffer;
+  << "        help   | h            - displays this help page" <<              '\n'
+  << "        create | c <NPC NAME> - creates a new npc with a given name" <<  '\n'
+  << "        load   | l <NPC NAME> - loads a npc's dialog tree by name" <<    '\n'
+  << "        delete | d <NPC NAME> - delete's npc from the file" <<           '\n'
+  << "        quit   | q            - exits the program" <<                    '\n';
 }

@@ -48,13 +48,8 @@ void printline(std::string input, int speed) {
   std::cout << '\n';
 }
 
-/*read: reads the user input are returns it in a string type
-*/
-std::string read() {
-  std::string output;
-  std::cin >> output;
-  return output;
-}
+
+
 
 /*process: processes the command and calls the appropraite function
 * @param - user command input
