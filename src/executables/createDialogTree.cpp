@@ -4,37 +4,50 @@
 
 
 int main(int argc, char const *argv[]) {
-  do {
-  std::cout << "New NPC or old NPC? <n | o>" << '\n';
-  std::string choice = read();
-} while (choice != "n" && choice != "o")
+  DialogTree dt = new DialogTree();
+  std::string command;
 
-if (choice == "n") {
-  //create new character
-} else {
-  //load old character
-}
+  do {
+
+  } while (command != "q" || command != "quit")
+
+
   return 0;
 }
 
+void DialogTree::process(std::string command) {
+  
+}
 
-DialogFile::DialogFile(string fileName, bool initialize):
+void DialogTree::usage() {
+  std::cout <<
+              "Commands:" << '\n'
+  << "        create | c - creates a new npc with a given name" <<  '\n'
+  << "        load   | l - loads a npc's dialog tree by name" <<    '\n'
+  << "        delete | d - delete's npc from the file" <<           '\n';
+}
+
+
+
+DialogTree::DialogFile(string fileName, bool initialize):
     stream{fileName, ios::in | ios::out | ios::binary} {
-  if (!stream.is_open() || initialize) {
+  if (!stream.is_open() && initialize) {
     stream.open(fileName, ios::in | ios::out | ios::binary | ios::trunc);
+  } else {
+    stream = nullptr;
   }
 }
 
-DialogFile::~DialogFile() {
+DialogTree::~DialogFile() {
     stream.close();
 }
 
-void DialogFile::flush_stream() {
+void DialogTree::flush_stream() {
   stream.flush();
 }
 
 
-void DialogFile::write(size_t k, char * str, size_t blockSize) {
+void DialogTree::write(size_t k, char * str, size_t blockSize) {
   char buffer[blockSize];
   buffer[blockSize - 1] = '\0';
   strncpy(buffer, str, blockSize - 1);
@@ -44,7 +57,7 @@ void DialogFile::write(size_t k, char * str, size_t blockSize) {
 }
 
 
-char * DialogFile::read(size_t k, char * oldbuffer, size_t blockSize) {
+char * DialogTree::read(size_t k, char * oldbuffer, size_t blockSize) {
   char str[blockSize];
   strncpy(str, oldbuffer, blockSize);
   stream.seekg(k*blockSize, ios::beg);
