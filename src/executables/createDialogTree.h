@@ -5,11 +5,15 @@
   struct DialogTree {
     public:
 
+    IO * npc;
+
     DialogTree();
 
     void process(std::string command, DialogTree  dt);
 
     void usage();
+
+
 
   };
 

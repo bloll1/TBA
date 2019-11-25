@@ -7,6 +7,16 @@
 int main(int argc, char const *argv[]) {
   DialogTree  dt;
   std::string command;
+  for (size_t y = 0; y < 2; y++) {
+    for (size_t i = 31; i < 37; i++) {
+      std::cout << "COLOR #: " << i << " THINGY: " << y << " ";
+      std::cout << "\033["<< y <<";" << i << "mLOOK AT ME \033[0m" << '\n';
+    }
+    for (size_t i = 41; i < 47; i++) {
+      std::cout << "COLOR #: " << i << " THINGY: " << y << " ";
+      std::cout << "\033["<< y <<";" << i << "mLOOK AT ME \033[0m" << '\n';
+    }
+  }
 
   do {
     std::cout << "\033[1;37mCRT: \033[0m";
