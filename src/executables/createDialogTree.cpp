@@ -7,7 +7,7 @@
 int main(int argc, char const *argv[]) {
   DialogTree  dt;
   std::string command;
-  for (size_t y = 0; y < 2; y++) {
+  for (size_t y = 0; y < 3; y++) {
     for (size_t i = 31; i < 37; i++) {
       std::cout << "COLOR #: " << i << " THINGY: " << y << " ";
       std::cout << "\033["<< y <<";" << i << "mLOOK AT ME \033[0m" << '\n';
@@ -22,6 +22,10 @@ int main(int argc, char const *argv[]) {
     std::cout << "\033[1;37mCRT: \033[0m";
     command = read();
     dt.process(command, dt);
+
+    while (dt.npc->stream.is_open() && command != "quit") {
+      break;
+    }
   } while (command != "q" && command != "quit");
 
 
@@ -36,13 +40,12 @@ void DialogTree::process(std::string command, DialogTree dt) {
   if (command == "help" || command == "h" || command == "") {
     dt.usage();
   } else if (command == "create" || command == "c") {
-    //dt.create(name);
-    std::cout << "CALLED CREATE" << '\n';
+    dt.create();
   } else if (command == "load" || command == "l") {
-    //dt.load(name);
+    dt.load(dt);
     std::cout << "CALLED LOAD" << '\n';
   } else if (command == "delete" || command == "d") {
-    //dt.delete(name);
+    dt.delete_dt();
     std::cout << "CALLED DELETE" << '\n';
   } else if (command == "quit" || command == "q") {
     std::cout << "CLOSING..." << '\n';
@@ -51,6 +54,36 @@ void DialogTree::process(std::string command, DialogTree dt) {
   }
 
 }
+
+void DialogTree::delete_dt() {
+  std::cout << "Delete NPC Name: ";
+  std::remove(read().c_str());
+}
+
+
+void DialogTree::load(DialogTree dt) {
+  dt.npc->stream.close();
+  do {
+    std::cout << "Load NPC Name: ";
+    std::string name = read();
+    npc = new IO(name, false);
+    if (name == "quit" || name == "q") {
+      npc = new IO("Default", true);
+      break;
+    }
+    if (!dt.npc->stream.is_open()) {
+      std::cout << "Error: " << name << " is not a Valid NPC Name" << '\n';
+      std::cout << "Press quit or q to exit" << '\n';
+      std::cout << std::endl;
+    }
+  } while(!dt.npc->stream.is_open());
+}
+
+void DialogTree::create() {
+  std::cout << "NPC Name: ";
+  npc = new IO(read(), true);
+}
+
 
 void DialogTree::usage() {
   std::cout << std::endl;

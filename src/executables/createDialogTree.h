@@ -5,7 +5,7 @@
   struct DialogTree {
     public:
 
-    IO * npc;
+    IO * npc = new IO("Default", true) ;
 
     DialogTree();
 
@@ -13,7 +13,11 @@
 
     void usage();
 
+    void create();
 
+    void load(DialogTree dt);
+
+    void delete_dt();
 
   };
 

@@ -4,8 +4,6 @@ IO::IO(std::string fileName, bool initialize) :
     stream{fileName, std::ios::in | std::ios::out | std::ios::binary} {
   if (!stream.is_open() && initialize) {
     stream.open(fileName, std::ios::in | std::ios::out | std::ios::binary | std::ios::trunc);
-  } else {
-    stream.close();
   }
 }
 

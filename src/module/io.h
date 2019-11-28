@@ -6,7 +6,8 @@
 #include <iostream>
 
 class IO {
-
+  public:
+    
   IO(std::string fileName, bool initialize);
 
   ~IO();
