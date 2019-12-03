@@ -1,7 +1,8 @@
-#ifndef DialogTree
-#define  DialogTree
+#ifndef DTFUNCTION
+#define  DTFUNCTION
   #include "io.h"
   #include <string>
+  #include <sstream>
 
 struct DialogTree {
   public:
@@ -17,6 +18,7 @@ struct DialogTree {
 
   //processes character commands for a file tree
   void char_process(std::string cmd, DialogTree * dt);
+
 };
 
 

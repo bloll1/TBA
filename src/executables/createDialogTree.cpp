@@ -30,7 +30,7 @@ int main(int argc, char const *argv[]) {
                         && ccommand != "quit" && ccommand != "q") {
       std::cout << "\033[1;37m NPC - \033[0m" << "\033[1;36m" << dt->npc_name << ": \033[0m";
       ccommand = read();
-      dt->dt_npc->char_process(ccommand, dt_npc);
+      dt->dt_npc->char_process(ccommand, dt->dt_npc);
     }
 
   } while (command != "q" && command != "quit");
@@ -113,7 +113,7 @@ void NPC::load(NPC * dt, std::string parameters) {
     dt->npc_name = read();
     dt->dt_npc->io_npc = new IO(dt->npc_name, false);
   }
-  if (!dt->npc->stream.is_open()) {
+  if (!dt->dt_npc->io_npc->stream.is_open()) {
     std::cout << "Error: " << dt->npc_name << " is not a Valid NPC Name" << '\n';
     std::cout << std::endl;
     dt->dt_npc->io_npc = new IO("Default", true);
