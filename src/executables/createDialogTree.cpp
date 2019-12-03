@@ -106,6 +106,7 @@ void NPC::delete_dt(std::string parameters) {
 void NPC::load(NPC * dt, std::string parameters) {
   dt->dt_npc->io_npc->stream.close();
   if (parameters != "") {
+
     dt->npc_name = parameters;
     dt->dt_npc->io_npc = new IO(dt->npc_name, false);
   } else {
@@ -136,7 +137,7 @@ void NPC::create(NPC * dt, std::string parameters) {
     dt->npc_name = read();
     dt->dt_npc->io_npc = new IO(dt->npc_name, true);
   }
-  dt->dt_npc->load_meta();
+  dt->dt_npc->update_meta(0);
 }
 
 

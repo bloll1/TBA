@@ -9,11 +9,15 @@ DialogTree::DialogTree() {
 
 
 void DialogTree::load_meta() {
-
+  char hello = 'a';
+  char * metainf = io_npc->read(0, &hello, sizeof(number_of_entries));
+  number_of_entries = atoi(metainf);
 }
 
-void DialogTree::create_meta() {
-
+void DialogTree::update_meta(int newMeta) {
+  number_of_entries = newMeta;
+  char metainf = number_of_entries;
+  io_npc->write(0, &metainf, sizeof(number_of_entries));
 }
 
 void DialogTree::ch_usage() {
@@ -42,7 +46,7 @@ void DialogTree::char_process(std::string cmd, DialogTree * dt) {
   if (command == "help" || command == "h" || command == "") {
     dt->ch_usage();
   } else if (command == "addline" || command == "al") {
-    //dt->addline();
+    dt->addline();
   } else if (command == "deleteline" || command == "dl") {
     //dt->deleteline(parameters);
   } else if (command == "editline" || command == "el") {
@@ -57,4 +61,11 @@ void DialogTree::char_process(std::string cmd, DialogTree * dt) {
   } else {
     std::cout << "Error: " << command << " is unkown try <help>" << '\n';
   }
+}
+
+
+
+
+void DialogTree::addline() {
+
 }

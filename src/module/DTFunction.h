@@ -3,6 +3,9 @@
   #include "io.h"
   #include <string>
   #include <sstream>
+  #include <stdlib.h>
+  #include <iostream>
+  #include <vector>
 
 struct DialogTree {
   public:
@@ -16,10 +19,10 @@ struct DialogTree {
   //                            DIALOGTREE FUNCTIONS
 
   //when a new stream is loaded the meta data is stored in number_of_entries
-  void DialogTree::load_meta();
+  void load_meta();
 
-  //when a new stream is loaded the meta data is stored in number_of_entries
-  void DialogTree::create_meta();
+  //when a stream is added or created it updates the metainf to the new info
+  void update_meta(int newMeta);
 
   //displays the character commands for loaded npc
   void ch_usage();
@@ -27,10 +30,21 @@ struct DialogTree {
   //processes character commands for a file tree
   void char_process(std::string cmd, DialogTree * dt);
 
-
+  //add a line to the current
+  void addline();
 
 };
 
+
+struct Line {
+public:
+
+  std::vector<int> parents;
+  std::vector<int> children;
+
+
+
+};
 
 
 
