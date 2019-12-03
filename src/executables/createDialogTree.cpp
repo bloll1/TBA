@@ -112,12 +112,15 @@ void NPC::load(NPC * dt, std::string parameters) {
     std::cout << "Load NPC Name: ";
     dt->npc_name = read();
     dt->dt_npc->io_npc = new IO(dt->npc_name, false);
+
   }
   if (!dt->dt_npc->io_npc->stream.is_open()) {
     std::cout << "Error: " << dt->npc_name << " is not a Valid NPC Name" << '\n';
     std::cout << std::endl;
     dt->dt_npc->io_npc = new IO("Default", true);
     dt->npc_name = "Default";
+  } else {
+    dt->dt_npc->load_meta();
   }
 }
 
@@ -133,6 +136,7 @@ void NPC::create(NPC * dt, std::string parameters) {
     dt->npc_name = read();
     dt->dt_npc->io_npc = new IO(dt->npc_name, true);
   }
+  dt->dt_npc->load_meta();
 }
 
 

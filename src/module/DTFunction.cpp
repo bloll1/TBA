@@ -1,10 +1,21 @@
 #include "DTFunction.h"
 
 DialogTree::DialogTree() {
-  
+
 }
 
+
 //                            DIALOGTREE FUNCTIONS
+
+
+void DialogTree::load_meta() {
+
+}
+
+void DialogTree::create_meta() {
+
+}
+
 void DialogTree::ch_usage() {
   std::cout << std::endl;
   std::cout <<
