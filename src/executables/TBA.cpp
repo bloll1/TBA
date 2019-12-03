@@ -3,7 +3,7 @@
 #include <sstream>
 #include <stdio.h>
 #include "TBA.h"
-#ifdef linux
+#ifdef __linux__
 #include <unistd.h>
 #endif
 
@@ -32,8 +32,8 @@ void usage() {
 }
 
 void mySleep(int mySleep) {
-  #ifdef linux
-    usleep(speed);
+  #ifdef __linux__
+    usleep(mySleep);
   #endif
   #if defined(_WIN32) || defined(__CYGWIN__)
     Sleep(mySleep / 1000);
