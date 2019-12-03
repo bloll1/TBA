@@ -7,7 +7,7 @@
 
 
 int main(int argc, char const *argv[]) {
-  DialogTree * dt = new DialogTree();
+  NPC * dt = new NPC();
   std::string command;
   std::string ccommand;
   for (size_t y = 0; y < 3; y++) {
@@ -26,11 +26,11 @@ int main(int argc, char const *argv[]) {
     std::cout << "\033[1;37mCRT: \033[0m";
     command = read();
     dt->process(command, dt);
-    while (dt->npc_name != "Default" && dt->npc->stream.is_open()
+    while (dt->npc_name != "Default" && dt->dt_npc->io_npc->stream.is_open()
                         && ccommand != "quit" && ccommand != "q") {
       std::cout << "\033[1;37m NPC - \033[0m" << "\033[1;36m" << dt->npc_name << ": \033[0m";
       ccommand = read();
-      dt->char_process(ccommand, dt);
+      dt->dt_npc->char_process(ccommand, dt_npc);
     }
 
   } while (command != "q" && command != "quit");
@@ -40,7 +40,7 @@ int main(int argc, char const *argv[]) {
 
 
 
-DialogTree::DialogTree() {
+NPC::NPC() {
 
 }
 
@@ -53,7 +53,7 @@ DialogTree::DialogTree() {
 
 
 
-void DialogTree::usage() {
+void NPC::usage() {
   std::cout << std::endl;
   std::cout <<
               "Commands:" << '\n'
@@ -67,7 +67,7 @@ void DialogTree::usage() {
 
 
 
-void DialogTree::process(std::string cmd, DialogTree * dt) {
+void NPC::process(std::string cmd, NPC * dt) {
   std::stringstream strnstream(cmd);
   std::string command;
   strnstream >> command;
@@ -91,7 +91,7 @@ void DialogTree::process(std::string cmd, DialogTree * dt) {
 
 
 
-void DialogTree::delete_dt(std::string parameters) {
+void NPC::delete_dt(std::string parameters) {
   if (parameters != "") {
     std::remove(parameters.c_str());
   } else {
@@ -103,21 +103,20 @@ void DialogTree::delete_dt(std::string parameters) {
 
 
 
-void DialogTree::load(DialogTree * dt, std::string parameters) {
-  dt->npc->stream.close();
+void NPC::load(NPC * dt, std::string parameters) {
+  dt->dt_npc->io_npc->stream.close();
   if (parameters != "") {
     dt->npc_name = parameters;
-    dt->npc = new IO(dt->npc_name, false);
+    dt->dt_npc->io_npc = new IO(dt->npc_name, false);
   } else {
     std::cout << "Load NPC Name: ";
     dt->npc_name = read();
-    dt->npc = new IO(dt->npc_name, false);
+    dt->dt_npc->io_npc = new IO(dt->npc_name, false);
   }
   if (!dt->npc->stream.is_open()) {
     std::cout << "Error: " << dt->npc_name << " is not a Valid NPC Name" << '\n';
-    std::cout << "Press quit or q to exit" << '\n';
     std::cout << std::endl;
-    dt->npc = new IO("Default", true);
+    dt->dt_npc->io_npc = new IO("Default", true);
     dt->npc_name = "Default";
   }
 }
@@ -125,14 +124,14 @@ void DialogTree::load(DialogTree * dt, std::string parameters) {
 
 
 
-void DialogTree::create(DialogTree * dt, std::string parameters) {
+void NPC::create(NPC * dt, std::string parameters) {
   if (parameters != "") {
     dt->npc_name = parameters;
-    npc = new IO(dt->npc_name, true);
+    dt->dt_npc->io_npc = new IO(dt->npc_name, true);
   } else {
     std::cout << "NPC Name: ";
     dt->npc_name = read();
-    npc = new IO(dt->npc_name, true);
+    dt->dt_npc->io_npc = new IO(dt->npc_name, true);
   }
 }
 
@@ -141,50 +140,3 @@ void DialogTree::create(DialogTree * dt, std::string parameters) {
 
 //                            END OF NPC FUNCTIONS
 //===============================================================================
-//                            DIALOGTREE FUNCTIONS
-
-
-
-
-void DialogTree::ch_usage() {
-  std::cout << std::endl;
-  std::cout <<
-              "Commands:" << '\n'
-  << "        help       | h                  - displays this help page" <<           '\n'
-  << "        addline    | al                 - adds a line, gives next #, points current line to it " <<              '\n'
-  << "        deleteline | dl <LINE_NUMBER>   - delete a given line" <<    '\n'
-  << "        editline   | el <LINE_NUMBER>   - edit a line by LINE_NUMBER" <<           '\n'
-  << "        move       | m  <LINE_NUMBER>   - delete's npc from the file" <<           '\n'
-  << "        point      | p  <LINE_NUMBER> to <LINE_NUMBER>  - points text to option" <<           '\n'
-  << "        readtree   | rt                 - prints all the dialog tree" <<  '\n'
-  << "        quit       | q                  - closes the npc file" <<                    '\n';
-}
-
-
-
-
-void DialogTree::char_process(std::string cmd, DialogTree * dt) {
-  std::stringstream strnstream(cmd);
-  std::string command;
-  strnstream >> command;
-  std::string parameters;
-  strnstream >> parameters;
-  if (command == "help" || command == "h" || command == "") {
-    dt->ch_usage();
-  } else if (command == "addline" || command == "al") {
-    //dt->addline();
-  } else if (command == "deleteline" || command == "dl") {
-    //dt->deleteline(parameters);
-  } else if (command == "editline" || command == "el") {
-    //dt->editline(parameters);
-  } else if (command == "move" || command == "m") {
-    //dt->move(parameters);
-  } else if (command == "point" || command == "p") {
-    //dt->point(parameters);
-  } else if (command == "readtree" || command == "rt") {
-    //dt->readtree();
-  } else if (command == "quit" || command == "q") {
-  } else {
-    std::cout << "Error: " << command << " is unkown try <help>" << '\n';
-  }
-}

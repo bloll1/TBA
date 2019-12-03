@@ -1,22 +1,24 @@
-#ifndef dialogTree
-#define dialogTree
+#ifndef NPC
+#define NPC
   #include "TBA.h"
   #include "io.h"
+  #include "DTFunction.h"
   #include <string>
-  struct DialogTree {
+  struct NPC {
     public:
 
     //TODO: Consider making a seperate class for in character tree creating
 
 
     //NPC object for i/o calls
-    IO * npc = new IO("Default", true) ;
+
+    DialogTree * dt_npc = new DialogTree();
 
     //the name of the current npc open
     std::string npc_name = "Default";
 
     //Default Constructor
-    DialogTree();
+    NPC();
 
     //================================================================================
     //                              NPC RELATED FUNCTIONS
@@ -41,14 +43,6 @@
 
     //                            END OF NPC FUNCTIONS
     //===============================================================================
-    //                            DIALOGTREE FUNCTIONS
-
-
-    //displays the character commands for loaded npc
-    void ch_usage();
-
-    //processes character commands for a file tree
-    void char_process(std::string cmd, DialogTree * dt);
   };
 
 
