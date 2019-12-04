@@ -4,7 +4,7 @@ DialogTree::DialogTree() {
 
 }
 
-
+//===============================================================================
 //                            DIALOGTREE FUNCTIONS
 
 
@@ -63,7 +63,19 @@ void DialogTree::char_process(std::string cmd, DialogTree * dt) {
   }
 }
 
+void DialogTree::readblock(int blockNumber) {
+  char hello = 'a';
+  parent  = atoi(io_npc->read(blockNumber + 1, &hello, sizeof(int)));
+  children = atoi(io_npc->read(blockNumber + 2, &hello, sizeof(int)));
+  data     = io_npc->read(blockNumber + 3, &hello, sizeof(std::string));
+}
 
+void DialogTree::writeblock(int blockNumber, int ) {
+  char cparent = current;
+  char cchildren = 0;
+  io_npc->write(0, &cparent, sizeof(int));
+  io_npc->write(0, &cchildren, sizeof(int));
+}
 
 
 void DialogTree::addline() {

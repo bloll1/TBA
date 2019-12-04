@@ -14,6 +14,14 @@ struct DialogTree {
 
   int number_of_entries;
 
+  int current_line_cursor = 0;
+
+  int children;
+
+  int parent;
+
+  char * data;
+
   DialogTree();
   //===============================================================================
   //                            DIALOGTREE FUNCTIONS
@@ -33,16 +41,10 @@ struct DialogTree {
   //add a line to the current
   void addline();
 
-};
 
-
-struct Line {
-public:
-
-  std::vector<int> parents;
-  std::vector<int> children;
-
-
+private:
+  //reads the parent, child, and data blocks
+  void readblock(int blockNumber);
 
 };
 
